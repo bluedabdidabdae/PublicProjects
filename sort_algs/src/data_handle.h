@@ -75,7 +75,7 @@ void ResetData(data vect[], data vect2[], float *algtime)
 int CheckOrder(data vect[])
 {
     SetTargetFPS(MAXRAYLIBFPS);
-    for(int i=0; i<arrLen; i++)
+    for(int i=0; i<arrLen-1; i++)
     {
         if(vect[i].value <= vect[i+1].value)
             vect[i].color = orderCheckerColor;

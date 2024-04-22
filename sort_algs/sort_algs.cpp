@@ -60,7 +60,6 @@ int main()
                 if(SettingsHandler())
                     ResetVectColor(default_list);
                 continue;
-                //haven't done shit about it for now
             break;
             case 3:
                 CloseWindow();
@@ -95,57 +94,4 @@ int main()
         }
         continue;
     }
-    
-    
-    /*
-    random debugging shit
-    
-    SetTargetFPS(STDFPS);
-    
-    while(!WindowShouldClose())
-    {
-        
-        InitData(default_list);
-        
-        ResetData(element_list, default_list);
-        RecursiveMergeSort(element_list, 0, ELENUM);
-        CheckOrder(element_list);
-        if(WindowShouldClose())
-            CloseWindow();
-        
-        ResetData(element_list, default_list);
-        RadixSortLsd(element_list);
-        CheckOrder(element_list);
-        if(WindowShouldClose())
-            CloseWindow();
-        
-        SetTargetFPS(MAXRAYLIBFPS);
-        ResetData(element_list, default_list);
-        OddEvenSort(element_list);
-        CheckOrder(element_list);
-        if(WindowShouldClose())
-            CloseWindow();
-        
-        SetTargetFPS(STDFPS);
-        ResetData(element_list, default_list);
-        SelectionSort(element_list);
-        CheckOrder(element_list);
-        if(WindowShouldClose())
-            CloseWindow();
-        
-        SetTargetFPS(MAXRAYLIBFPS);
-        ResetData(element_list, default_list);
-        CocktailShakerSort(element_list);
-        CheckOrder(element_list);
-        if(WindowShouldClose())
-            CloseWindow();
-        
-        SetTargetFPS(STDFPS);
-        ResetData(element_list, default_list);
-        DoubleSelectionSort(element_list);
-        CheckOrder(element_list);
-        if(WindowShouldClose())
-            CloseWindow();
-    }
-    */
 }

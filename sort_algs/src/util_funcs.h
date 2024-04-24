@@ -16,8 +16,8 @@ int SettingsHandler()
         {
             switch(CheckSettingsMenuCollisions())
             {
-                case 1:  backgColor = RAYWHITE;  break;
-                case 2:  backgColor = BLACK;     break;
+                case 1:  secondaryColor = BLACK; backgColor = RAYWHITE;  break;
+                case 2:  secondaryColor = RAYWHITE; backgColor = BLACK;  break;
                 
                 case 11:  secondaryColor = RAYWHITE;  break;
                 case 12:  secondaryColor = BLACK;     break;

@@ -3,12 +3,11 @@ int CheckAlgsMenuCollisions(alg vect[]);
 int MainMenuHandler();
 int CheckMainMenuCollisions();
 int CheckSettingsMenuCollisions();
-int SettingsHandler();
+void SettingsHandler();
 void RecapScreen(char algName[][40], float algtime, int sorted);
 
-int SettingsHandler()
+void SettingsHandler()
 {
-    int retVal = 0;
     while(!WindowShouldClose())
     {
         DrawSettings();
@@ -16,38 +15,59 @@ int SettingsHandler()
         {
             switch(CheckSettingsMenuCollisions())
             {
-                case 1:  secondaryColor = BLACK; backgColor = RAYWHITE;  break;
-                case 2:  secondaryColor = RAYWHITE; backgColor = BLACK;  break;
-                
-                case 11:  secondaryColor = RAYWHITE;  break;
-                case 12:  secondaryColor = BLACK;     break;
-                case 13:  secondaryColor = BLUE;      break;
-                case 14:  secondaryColor = PINK;      break;
-                case 15:  secondaryColor = GREEN;     break;
-                
-                case 21:  sortColor = RAYWHITE;  retVal = 1;  break;
-                case 22:  sortColor = BLACK;     retVal = 1;  break;
-                case 23:  sortColor = BLUE;      retVal = 1;  break;
-                case 24:  sortColor = PINK;      retVal = 1;  break;
-                case 25:  sortColor = GREEN;    retVal = 1;   break;
-                
-                case 31: visualIndicatorColor = RAYWHITE; break;
-                case 32: visualIndicatorColor = BLACK;    break;
-                case 33: visualIndicatorColor = BLUE;     break;
-                case 34: visualIndicatorColor = PINK;     break;
-                case 35: visualIndicatorColor = GREEN;    break;
-                
-                case 41: orderCheckerColor = RAYWHITE; break;
-                case 42: orderCheckerColor = BLACK;    break;
-                case 43: orderCheckerColor = BLUE;     break;
-                case 44: orderCheckerColor = PINK;     break;
-                case 45: orderCheckerColor = GREEN;    break;
+                // light theme
+                case 1:
+                    backgColor = RAYWHITE;
+                    secondaryColor = BLACK;
+                    sortColor = BLACK;
+                    visualIndicatorColor = RED;
+                    orderCheckerColor = GREEN;
+                break;
+                // dark theme
+                case 2:
+                    backgColor = BLACK;
+                    secondaryColor = RAYWHITE;
+                    sortColor = RAYWHITE;
+                    visualIndicatorColor = RED;
+                    orderCheckerColor = GREEN;
+                break;
+                // blood theme
+                case 3:
+                    backgColor = BLACK;
+                    secondaryColor = RED;
+                    sortColor = RED;
+                    visualIndicatorColor = BLUE;
+                    orderCheckerColor = MAROON;
+                break;
+                // hack theme
+                case 4:
+                    backgColor = BLACK;
+                    secondaryColor = GREEN;
+                    sortColor = GREEN;
+                    visualIndicatorColor = RED;
+                    orderCheckerColor = DARKGREEN;
+                break;
+                // ocean theme
+                case 5:
+                    backgColor = RAYWHITE;
+                    secondaryColor = BLUE;
+                    sortColor = BLUE;
+                    visualIndicatorColor = RED;
+                    orderCheckerColor = DARKBLUE;
+                break;
+                // donut theme
+                case 6:
+                    backgColor = RAYWHITE;
+                    secondaryColor = PINK;
+                    sortColor = PINK;
+                    visualIndicatorColor = BLUE;
+                    orderCheckerColor = PURPLE;
+                break;
                 
                 default: continue;
             }
         }
     }
-    return retVal;
 }
 
 int CheckSettingsMenuCollisions()
@@ -57,39 +77,12 @@ int CheckSettingsMenuCollisions()
 
     if(mouseY > 210 && mouseY < 260)
     {
-        if(mouseX > 590 && mouseX < 720)   return 1;
-        if(mouseX > 760 && mouseX < 890)   return 2;
-    }
-    if(mouseY > 280 && mouseY < 330)
-    {
-        if(mouseX > 590 && mouseX < 720)   return 11;
-        if(mouseX > 760 && mouseX < 890)   return 12;
-        if(mouseX > 910 && mouseX < 1040)  return 13;
-        if(mouseX > 1060 && mouseX < 1190) return 14;
-        if(mouseX > 1210 && mouseX < 1340) return 15;
-    }
-    if(mouseY > 350 && mouseY < 400)
-    {
-        if(mouseX > 590 && mouseX < 720)   return 21;
-        if(mouseX > 760 && mouseX < 890)   return 22;
-        if(mouseX > 910 && mouseX < 1040)  return 23;
-        if(mouseX > 1060 && mouseX < 1190) return 24;
-        if(mouseX > 1210 && mouseX < 1340) return 25;
-    }
-    if(mouseY > 420 && mouseY < 470)
-    {
-        if(mouseX > 590 && mouseX < 720)   return 31;
-        if(mouseX > 760 && mouseX < 890)   return 32;
-        if(mouseX > 910 && mouseX < 1040)  return 33;
-        if(mouseX > 1060 && mouseX < 1190) return 34;
-        if(mouseX > 1210 && mouseX < 1340) return 35;
-    }
-    if(mouseY > 490 && mouseY < 540)
-    {   if(mouseX > 590 && mouseX < 720)   return 41;
-        if(mouseX > 760 && mouseX < 890)   return 42;
-        if(mouseX > 910 && mouseX < 1040)  return 43;
-        if(mouseX > 1060 && mouseX < 1190) return 44;
-        if(mouseX > 1210 && mouseX < 1340) return 45;
+        if(mouseX > 600  && mouseX < 730)   return 1;
+        if(mouseX > 750  && mouseX < 880)   return 2;
+        if(mouseX > 900  && mouseX < 1030)  return 3;
+        if(mouseX > 1050 && mouseX < 1180)  return 4;
+        if(mouseX > 1200 && mouseX < 1330)  return 5;
+        if(mouseX > 1350 && mouseX < 1580)  return 6;
     }
     return 0;
 }

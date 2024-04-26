@@ -44,7 +44,7 @@ int main()
     SetTargetFPS(IDLEFPS);
     
     //SetTargetFPS(MAXRAYLIBFPS);
-    
+
     while(1)
     {
         benchmark = false;
@@ -57,8 +57,8 @@ int main()
                 arrLen=BENCHELENUM;
             break;
             case 2:
-                if(SettingsHandler())
-                    ResetVectColor(default_list);
+                SettingsHandler();
+                ResetVectColor(default_list);
                 continue;
             break;
             case 3:

@@ -12,6 +12,7 @@
 #define MAINALGHEIGHT 80
 #define ALGNUMBER 14
 #define VALIDALGNUMBER 6
+#define BUTTONFADEVALUE 0.2f
 
 #define WINDOWNAME "Sorting Algs"
 #define BENCHELENUM 85000
@@ -34,9 +35,10 @@ typedef struct alg_model{
     int (*algFunc)(data[]);         // indirizzo dell'algoritmo di sort
 }alg;
 
-Color backgColor = BLACK;           // colore background default
-Color secondaryColor = RAYWHITE;    // colore ui default
-Color sortColor = RAYWHITE;         // colore sorting default
+// light theme is set as default theme
+Color backgColor = RAYWHITE;           // colore background default
+Color secondaryColor = BLACK;    // colore ui default
+Color sortColor = BLACK;         // colore sorting default
 Color visualIndicatorColor = RED;   // colore accessi array default
 Color orderCheckerColor = GREEN;    // colore order-checker default
 

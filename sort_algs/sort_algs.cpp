@@ -1,20 +1,57 @@
-#include <stdlib.h>
 #include <sys/time.h>
 #include <stdbool.h>
-#include <string.h>
-#include <malloc.h>
 
 #include "raylib.h"
 #include "raymath.h"
 
-#include "src/init_global_data.h"
-#include "src/graphic_funcs.h"
-#include "src/base_sorts.h"
-#include "src/data_handle.h"
-#include "src/util_funcs.h"
+#define WIDTH 1600
+#define HEIGHT 900
+#define RATIO 1
+#define MAX HEIGHT
+#define MIN 0
+#define STDFPS 360
+#define IDLEFPS 30
+#define MAXRAYLIBFPS 915285505
+#define ALGWIDTH 250
+#define ALGHEIGHT 40
+#define MAINBUTTONWIDTH 700
+#define MAINALGHEIGHT 80
+#define ALGNUMBER 14
+#define VALIDALGNUMBER 6
+#define BUTTONFADEVALUE 0.2f
+
+#define WINDOWNAME "Sorting Algs"
+#define BENCHELENUM 85000
+
+const int MAINALGX = WIDTH/2-MAINBUTTONWIDTH/2;
+const int ELENUM = WIDTH/RATIO;
+const int RECTWIDTH = WIDTH/ELENUM;
+const int HALFWIDTH = WIDTH/2;
+const int HALFHEIGHT = HEIGHT/2;
+
+// Light theme is set as default theme at variable declaration.
+Color backgColor = RAYWHITE;           // Background default color.
+Color secondaryColor = BLACK;          // UI default color.
+Color sortColor = BLACK;               // Sorting default color.
+Color visualIndicatorColor = RED;      // Array access cursor default color.
+Color orderCheckerColor = GREEN;       // Order-checker default color.
+
+bool benchmark;                        // Tells the program if you're benchmarking an alg, (no graphic and bigger array).
+int arrLen;                            // Logic lenght of the array to sort.
+unsigned long long swaps;              // == element-swaps.
+unsigned long long comps;              // == comparisons.
+unsigned long long fcycles;            // == for-cycles.
+unsigned long long marr;               // == main-array-access.
+unsigned long long secarr;             // == secondary-array-access.
+
+#include "headers/structs.h"
+#include "headers/data_init_reset.h"
+#include "headers/main_menu.h"
+#include "headers/alg_menu.h"
+#include "headers/settings_menu.h"
 
 /*
-    timer functioning (need a fucking phd)
+    timer functioning (i have potato memory)
 
     struct timeval stop, start;
     gettimeofday(&start, NULL);
@@ -24,7 +61,6 @@
     us/usec == microseconds == sec*10^-6
     printf("took %lu us\n", (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec);
 */
-
 int main()
 {
     //main data initialization
@@ -36,19 +72,23 @@ int main()
     
     srand(time(NULL));
     InitData(default_list);
-    Initalgs(algInfo_list);
+    InitAlgs(algInfo_list);
     
     ResetData(element_list, default_list, &algtime);
     
     InitWindow(WIDTH, HEIGHT, WINDOWNAME);
     SetTargetFPS(IDLEFPS);
-    
-    //SetTargetFPS(MAXRAYLIBFPS);
 
+    // entering program hyperloop, break condition is case 3.
     while(1)
     {
         benchmark = false;
         
+        /*
+            I'm handling both the main and algs menu in the main
+            since this way i don't have to pass a huge ammount
+            of variables through functions.
+        */
         switch(MainMenuHandler())
         {
             case 0: break;
@@ -65,33 +105,56 @@ int main()
                 CloseWindow();
                 return 0;
             break;
+            // pressing mouse-left out of a button hitbox.
             default:
                 continue;
         }
         
+        /*
+            Here i'm handling the whole alg menu through one single
+            function that returns the index of the sort alg inside
+            the array, this way i can access all the infos about that
+            sort alg easly and i don't need to make a huge switch case
+            to call all the different algorythms, i instead use function
+            pointers inside the "alg type" array.
+
+            I know is quite ugly but it works well, and changing it requires
+            too much time and it makes no sense to do so since its basically
+            like a separated function relative to the main menu part.
+        */
+        algHandling:
         algId = AlgsMenuHandler(algInfo_list);
-        ResetData(element_list, default_list, &algtime);
         
-        if(algId >= 0 && algId < VALIDALGNUMBER)
+        /*
+            If the user pressed somewhere in a non valid spot i just ignore it
+            and go back to the start of the alg menu part.
+        */
+        if(algId != -1)
         {
+            ResetData(element_list, default_list, &algtime);
             if(benchmark)
                 DrawWaitSortingScreen();
             else
                 SetTargetFPS(STDFPS);
             
+            /*
+                1) saving start point for the timer
+                2) sorting the array through function pointer
+                3) saving end point for the timer
+            */
             gettimeofday(&start, NULL);
             algInfo_list[algId].algFunc(element_list);
             gettimeofday(&stop, NULL);
             
-            if(algId < VALIDALGNUMBER)
-            {
-                // separating sec from usec and adding them together
-                algtime+=stop.tv_sec - start.tv_sec;
-                algtime+=(float)(stop.tv_usec - start.tv_usec) / 1000000;
-            }
+            // separating sec from usec and adding them together into a float.
+            algtime+=stop.tv_sec - start.tv_sec;
+            algtime+=(float)(stop.tv_usec - start.tv_usec) / 1000000;
             
-            RecapScreen(algInfo_list[algId].algName, algtime, CheckOrder(element_list));
+            RecapScreen(algInfo_list[algId].algName, algtime, element_list);
         }
+        else
+            goto algHandling;
+        
         continue;
     }
 }

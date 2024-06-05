@@ -1,8 +1,13 @@
 #include "raylib.h"
 
+#include "headers/defines.h"
 #include "headers/variables_constants.h"
 #include "headers/structs.h"
 #include "headers/base_sorts.h"
+
+static int MergeArrays(data arr[], int l, int m, int r);         // done
+static void Swap(data *ele1, data *ele2);                        // done
+static int GetMax(data arr[]);                                   // done
 
 /*
     All the algorythms in here are known sorting
@@ -12,6 +17,28 @@
     If i added some strange stuff i commented
     it (i hope).
 */
+
+int BadSort(data arr[]) // non e' colpa mia sono stato costretto
+{
+    for (int i = 0; i < arrLen; i++){
+        fcycles++; // for cycle
+        for (int ii = 0; ii < arrLen-1; ii++){
+            fcycles++; // for cycle
+            marr+=2; // double main array access
+            comps++; // comparazione dell'if
+            if (arr[ii].value > arr[ii+1].value){
+                swaps++; //  swapping 2 elements
+                Swap(&arr[ii], &arr[ii+1]);
+                ii = 0;
+                if(WindowShouldClose())
+                    return 1;
+                if(!benchmark)
+                    HandleGraphic(arr);
+            }
+        }
+    }
+    return 0;
+}
 
 int RecursiveMergeSort(data arr[], int l = 0, int r = arrLen)
 {

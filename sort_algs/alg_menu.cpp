@@ -1,8 +1,13 @@
 #include "raylib.h"
 
+#include "headers/defines.h"
 #include "headers/variables_constants.h"
 #include "headers/structs.h"
 #include "headers/base_sorts.h"
+
+static void DrawAlgsMenu(alg vect[]);
+static int CheckAlgsMenuCollisions(alg vect[]);
+static void DrawRecapScreen(char algName[][40], float algtime, int sorted);
 
 int CheckAlgsMenuCollisions(alg vect[])
 {
@@ -37,7 +42,7 @@ void DrawAlgsMenu(alg vect[])
 int AlgsMenuHandler(alg element_list[])
 {
     int choice;
-    while(!WindowShouldClose())
+    while(1)
     {
         DrawAlgsMenu(element_list);
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -48,8 +53,9 @@ int AlgsMenuHandler(alg element_list[])
                 return choice;
             }
         }
+        else if(WindowShouldClose())
+            return -2;
     }
-    return -1;
 }
 
 void DrawRecapScreen(char algName[][40], float algtime, int sorted)

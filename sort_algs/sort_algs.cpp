@@ -1,27 +1,10 @@
+#include <time.h>
 #include <sys/time.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "raylib.h"
-#include "raymath.h"
-
-#define WIDTH 1600
-#define HEIGHT 900
-#define RATIO 1
-#define MAX HEIGHT
-#define MIN 0
-#define STDFPS 360
-#define IDLEFPS 30
-#define MAXRAYLIBFPS 915285505
-#define ALGWIDTH 250
-#define ALGHEIGHT 40
-#define MAINBUTTONWIDTH 700
-#define MAINALGHEIGHT 80
-#define ALGNUMBER 14
-#define VALIDALGNUMBER 6
-#define BUTTONFADEVALUE 0.2f
-
-#define WINDOWNAME "Sorting Algs"
-#define BENCHELENUM 85000
+#include "headers/defines.h"
 
 const int MAINALGX = WIDTH/2-MAINBUTTONWIDTH/2;
 const int ELENUM = WIDTH/RATIO;
@@ -129,7 +112,7 @@ int main()
             If the user pressed somewhere in a non valid spot i just ignore it
             and go back to the start of the alg menu part.
         */
-        if(algId != -1)
+        if(algId > -1)
         {
             ResetData(element_list, default_list, &algtime);
             if(benchmark)
@@ -152,6 +135,8 @@ int main()
             
             RecapScreen(algInfo_list[algId].algName, algtime, element_list);
         }
+        else if(algId == -2)
+            continue;
         else
             goto algHandling;
         

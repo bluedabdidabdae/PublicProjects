@@ -1,8 +1,12 @@
 #include "raylib.h"
 
+#include "headers/defines.h"
 #include "headers/variables_constants.h"
 #include "headers/structs.h"
 #include "headers/settings_menu.h"
+
+static void DrawSettings();
+static int CheckSettingsMenuCollisions();
 
 /*
     At the moment the themes are hard coded in this

@@ -1,8 +1,12 @@
 #include "raylib.h"
 
+#include "headers/defines.h"
 #include "headers/variables_constants.h"
 #include "headers/structs.h"
 #include "headers/main_menu.h"
+
+static int CheckMainMenuCollisions();
+static void DrawMainMenu();
 
 int MainMenuHandler()
 {

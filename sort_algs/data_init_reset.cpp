@@ -3,10 +3,12 @@
 
 #include "raylib.h"
 
+#include "headers/defines.h"
 #include "headers/variables_constants.h"
 #include "headers/structs.h"
 #include "headers/data_init_reset.h"
 #include "headers/base_sorts.h"
+
 
 void ResetVectColor(data vect[])
 {
@@ -52,6 +54,9 @@ void InitAlgs(alg vect[])
     vect[4].algFunc = SelectionSort;
     strcpy(*vect[5].algName, "Double selection sort\0");
     vect[5].algFunc = DoubleSelectionSort;
+    strcpy(*vect[6].algName, "Bad sort\0");
+    vect[6].algFunc = BadSort;
+    
 }
 
 /*

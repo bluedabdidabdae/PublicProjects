@@ -8,7 +8,5 @@
     from the user on its own.
 */
 void SettingsHandler();
-void DrawSettings();
-int CheckSettingsMenuCollisions();
 
 #endif
